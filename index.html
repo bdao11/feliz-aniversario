@@ -6,71 +6,96 @@
     <title>Abra o seu presente</title>
     <style>
         body {
-            text-align: center;
             font-family: Arial, sans-serif;
-            background-color: # maroon;
-            color: white;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
         }
-        #mensagem, #escudoFinal, #taçaEscudo, #textoAniversario {
+        #perguntaLiberta, #campoResposta, #botaoContinuar, #conteudoFinal, #mensagemFinal, #escudoFlu {
             display: none;
+        }
+        #mensagem {
+            white-space: pre-line;
+            font-size: 18px;
+            width: 80%;
+            margin: auto;
+            text-align: justify;
+        }
+        img {
+            max-width: 200px;
+            margin: 20px;
         }
     </style>
 </head>
 <body>
-    <div id="pergunta1">Quando começamos a conversar? (dd/mm/aa)</div>
-    <div id="brincadeira" style="display:none;">Brincadeirinha kkkkk</div>
-    <div id="pergunta2" style="display:none;">
-        Quando o Flu ganhou a Liberta? (dd/mm/aaaa) <br>
-        <input type="text" id="resposta" placeholder="dd/mm/aaaa">
-        <button onclick="verificarResposta()">Continuar</button>
+    <h2>Quando começamos a conversar?</h2>
+    <p id="brincadeira" style="color: green; display: none;">Brincadeirinha kkkkk</p>
+    
+    <h3 id="perguntaLiberta">Quando o Flu ganhou a Liberta? (dd/mm/aa)</h3>
+    <input type="text" id="campoResposta" placeholder="Digite a resposta aqui">
+    <button id="botaoContinuar" onclick="verificarResposta()">Continuar</button>
+    
+    <div id="conteudoFinal">
+        <img id="tacaLibertadores" src="taca.png" alt="Taça da Libertadores">
+        <img id="escudoFlu" src="flu.png" alt="Escudo Fluminense">
+        <p id="mensagem"></p>
     </div>
     
-    <div id="taçaEscudo" style="display:none;">
-        <img src="taca_libertadores.png" alt="Taça da Libertadores">
-        <img src="escudo_fluminense.png" alt="Escudo do Fluminense">
-    </div>
-
-    <div id="mensagem"></div>
-
-    <div id="escudoFinal" style="display:none;">
-        <img src="escudo_fluminense.png" alt="Escudo do Fluminense">
-        <h2>FELIZ ANIVERSÁRIO, JV!!!!</h2>
-    </div>
-
+    <p id="mensagemFinal" style="font-size: 24px; font-weight: bold; color: darkred;">FELIZ ANIVERSÁRIO, JV!!!!</p>
+    
+    <audio id="musica" src="my_sacrifice.mp3"></audio>
+    
     <script>
-        setTimeout(() => {
-            document.getElementById("brincadeira").style.display = "block";
+        document.addEventListener("DOMContentLoaded", function() {
             setTimeout(() => {
-                document.getElementById("pergunta2").style.display = "block";
+                document.getElementById("brincadeira").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("perguntaLiberta").style.display = "block";
+                    document.getElementById("campoResposta").style.display = "inline";
+                    document.getElementById("botaoContinuar").style.display = "inline";
+                }, 1000);
             }, 1000);
-        }, 1000);
+        });
 
         function verificarResposta() {
-            let resposta = document.getElementById("resposta").value;
-            if (resposta === "04/11/2023") {
-                document.getElementById("pergunta2").style.display = "none";
-                document.getElementById("taçaEscudo").style.display = "block";
-                setTimeout(exibirMensagem, 2000);
+            let resposta = document.getElementById("campoResposta").value;
+            if (resposta === "04/11/23") {
+                document.getElementById("perguntaLiberta").style.display = "none";
+                document.getElementById("campoResposta").style.display = "none";
+                document.getElementById("botaoContinuar").style.display = "none";
+                document.getElementById("conteudoFinal").style.display = "block";
+                setTimeout(exibirMensagem, 3000);
+                document.getElementById("musica").play();
+            } else {
+                alert("Resposta incorreta! Tente novamente.");
             }
         }
 
         function exibirMensagem() {
-            let texto = `Há um ano eu te disse que as pessoas ao seu redor eram felizes pela dádiva de poder compartilhar essa existência na sua companhia e continuo com esse mesmo pensamento. Você, ainda que sem saber ou sem a efetiva intenção, inspira a mudança naqueles que sintonizam na sua energia. Depois que nós nos conhecemos, pude evoluir em vários aspectos da minha vida graças a motivação que eu extraia de você. Umas das evoluções foi no esporte/atividade física né kkkkk, além de outros que nem convém enumerar nesse momento. Espero que você consiga sempre se lembrar que a sua vida é importante e faz diferença pra alguém em algum lugar no mundo, ainda que você não veja esse reflexo. \n\nFeliz aniversário, desejo que a luz que você emana não ilumine só o caminho das pessoas ao seu redor, como possa iluminar seu próprio caminho e decisões. Que os próximos ciclos sejam repletos de sucesso e felicidade, pois é o que você merece.\n\nAdeus com carinho, até o próximo ciclo.`;
-            let mensagemDiv = document.getElementById("mensagem");
-            mensagemDiv.style.display = "block";
-            let i = 0;
-            function digitarTexto() {
-                if (i < texto.length) {
-                    mensagemDiv.innerHTML += texto.charAt(i);
-                    i++;
-                    setTimeout(digitarTexto, 50);
+            let texto = `Há um ano eu te disse que as pessoas ao seu redor eram felizes pela dádiva de poder compartilhar essa existência na sua companhia e continuo com esse mesmo pensamento.
+            Você, ainda que sem saber ou sem a efetiva intenção, inspira a mudança naqueles que sintonizam na sua energia. Depois que nós nos conhecemos, pude evoluir em vários aspectos da minha vida graças à motivação que eu extraia de você.
+            Umas das evoluções foi no esporte/atividade física né kkkkk, além de outros que nem convém enumerar nesse momento. Espero que você consiga sempre se lembrar que a sua vida é importante e faz diferença pra alguém em algum lugar no mundo, ainda que você não veja esse reflexo.
+            
+            Feliz aniversário, desejo que a luz que você emana não ilumine só o caminho das pessoas ao seu redor, como possa iluminar seu próprio caminho e decisões. Que os próximos ciclos sejam repletos de sucesso e felicidade, pois é o que você merece.
+            
+            Adeus com carinho, até o próximo ciclo.`;
+            
+            let index = 0;
+            let elemento = document.getElementById("mensagem");
+            elemento.style.display = "block";
+            function escreverTexto() {
+                if (index < texto.length) {
+                    elemento.textContent += texto.charAt(index);
+                    index++;
+                    setTimeout(escreverTexto, 50);
                 } else {
                     setTimeout(() => {
-                        document.getElementById("escudoFinal").style.display = "block";
+                        document.getElementById("escudoFlu").style.display = "block";
+                        document.getElementById("mensagemFinal").style.display = "block";
                     }, 3000);
                 }
             }
-            digitarTexto();
+            escreverTexto();
         }
     </script>
 </body>
