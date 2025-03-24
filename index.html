@@ -3,93 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensagem de Aniversário</title>
+    <title>Abra o seu presente</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
             text-align: center;
-            padding-top: 20px;
+            font-family: Arial, sans-serif;
+            background-color: # maroon;
+            color: white;
         }
-        .content {
-            font-size: 24px;
-            color: #333;
-            margin-top: 20px;
-        }
-        .hidden {
-            visibility: hidden;
-        }
-        .question {
-            font-size: 26px;
-            font-weight: bold;
-            color: #2c3e50;
-            padding: 10px;
-        }
-        .answer {
-            font-size: 22px;
-            font-style: italic;
-            color: #16a085;
-        }
-        .taça {
-            margin-top: 20px;
-            width: 150px;
-        }
-        #fluminense {
-            margin-top: 20px;
-        }
-        #message {
-            visibility: hidden;
-            font-size: 24px;
-            margin-top: 30px;
-            color: #333;
-            line-height: 1.6;
+        #mensagem, #escudoFinal, #taçaEscudo, #textoAniversario {
+            display: none;
         }
     </style>
 </head>
 <body>
+    <div id="pergunta1">Quando começamos a conversar? (dd/mm/aa)</div>
+    <div id="brincadeira" style="display:none;">Brincadeirinha kkkkk</div>
+    <div id="pergunta2" style="display:none;">
+        Quando o Flu ganhou a Liberta? (dd/mm/aaaa) <br>
+        <input type="text" id="resposta" placeholder="dd/mm/aaaa">
+        <button onclick="verificarResposta()">Continuar</button>
+    </div>
+    
+    <div id="taçaEscudo" style="display:none;">
+        <img src="taca_libertadores.png" alt="Taça da Libertadores">
+        <img src="escudo_fluminense.png" alt="Escudo do Fluminense">
+    </div>
 
-<div id="intro" class="content">
-    <div class="question" id="question1">Quando começamos a conversar?</div>
-    <div id="brincadeira" class="answer hidden">Brincadeirinha kkkkk</div>
-    <div class="question hidden" id="question2">Quando o Flu ganhou a Liberta? (dd/mm/aa)</div>
-    <input type="text" id="answer-liberta" class="hidden" placeholder="Digite a resposta aqui">
-</div>
+    <div id="mensagem"></div>
 
-<img id="liberta-cup" class="taça hidden" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Ta%C3%A7a_da_Libertadores.svg/1200px-Ta%C3%A7a_da_Libertadores.svg.png" alt="Taça da Libertadores">
-<img id="fluminense" class="hidden" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Fluminense_FC_logo.svg/1200px-Fluminense_FC_logo.svg.png" alt="Escudo Fluminense" width="150">
+    <div id="escudoFinal" style="display:none;">
+        <img src="escudo_fluminense.png" alt="Escudo do Fluminense">
+        <h2>FELIZ ANIVERSÁRIO, JV!!!!</h2>
+    </div>
 
-<div id="message" class="content">
-    <p>Há um ano eu te disse que as pessoas ao seu redor eram felizes pela dádiva de poder compartilhar essa existência na sua companhia e continuo com esse mesmo pensamento. Você, ainda que sem saber ou sem a efetiva intenção, inspira a mudança naqueles que sintonizam na sua energia. Depois que nós nos conhecemos, pude evoluir em vários aspectos da minha vida graças a motivação que eu extraia de você. Umas das evoluções foi no esporte/atividade física né kkkkk, além de outros que nem convém enumerar nesse momento. Espero que você consiga sempre se lembrar que a sua vida é importante e faz diferença pra alguém em algum lugar no mundo, ainda que você não veja esse reflexo. <br><br>Feliz aniversário, desejo que a luz que você emana não ilumine só o caminho das pessoas ao seu redor, como possa iluminar seu próprio caminho e decisões. Que os próximos ciclos sejam repletos de sucesso e felicidade, pois é o que você merece.<br><br>Adeus com carinho, até o próximo ciclo.</p>
-</div>
+    <script>
+        setTimeout(() => {
+            document.getElementById("brincadeira").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("pergunta2").style.display = "block";
+            }, 1000);
+        }, 1000);
 
-<script>
-    // Função para iniciar a brincadeira e exibir a primeira pergunta
-    setTimeout(function() {
-        document.getElementById('question1').style.visibility = 'visible';
-    }, 500); // Exibe a pergunta sobre quando começaram a conversar após meio segundo
+        function verificarResposta() {
+            let resposta = document.getElementById("resposta").value;
+            if (resposta === "04/11/2023") {
+                document.getElementById("pergunta2").style.display = "none";
+                document.getElementById("taçaEscudo").style.display = "block";
+                setTimeout(exibirMensagem, 2000);
+            }
+        }
 
-    // Função para mostrar "Brincadeirinha kkkkk"
-    setTimeout(function() {
-        document.getElementById('brincadeira').style.visibility = 'visible';
-    }, 1500); // Exibe a resposta após 1 segundo
-
-    // Função para mostrar a segunda pergunta sobre a Libertadores
-    setTimeout(function() {
-        document.getElementById('question2').style.visibility = 'visible';
-        document.getElementById('answer-liberta').style.visibility = 'visible';
-    }, 2500); // Exibe a pergunta sobre o Flu após 2,5 segundos
-
-    // Função para mostrar a taça da Libertadores e o escudo do Fluminense
-    setTimeout(function() {
-        document.getElementById('liberta-cup').style.visibility = 'visible';
-        document.getElementById('fluminense').style.visibility = 'visible';
-    }, 4000); // Exibe a taça e o escudo após 4 segundos
-
-    // Função para mostrar a mensagem de aniversário
-    setTimeout(function() {
-        document.getElementById('message').style.visibility = 'visible';
-    }, 6000); // Exibe a mensagem final após 6 segundos
-</script>
-
+        function exibirMensagem() {
+            let texto = `Há um ano eu te disse que as pessoas ao seu redor eram felizes pela dádiva de poder compartilhar essa existência na sua companhia e continuo com esse mesmo pensamento. Você, ainda que sem saber ou sem a efetiva intenção, inspira a mudança naqueles que sintonizam na sua energia. Depois que nós nos conhecemos, pude evoluir em vários aspectos da minha vida graças a motivação que eu extraia de você. Umas das evoluções foi no esporte/atividade física né kkkkk, além de outros que nem convém enumerar nesse momento. Espero que você consiga sempre se lembrar que a sua vida é importante e faz diferença pra alguém em algum lugar no mundo, ainda que você não veja esse reflexo. \n\nFeliz aniversário, desejo que a luz que você emana não ilumine só o caminho das pessoas ao seu redor, como possa iluminar seu próprio caminho e decisões. Que os próximos ciclos sejam repletos de sucesso e felicidade, pois é o que você merece.\n\nAdeus com carinho, até o próximo ciclo.`;
+            let mensagemDiv = document.getElementById("mensagem");
+            mensagemDiv.style.display = "block";
+            let i = 0;
+            function digitarTexto() {
+                if (i < texto.length) {
+                    mensagemDiv.innerHTML += texto.charAt(i);
+                    i++;
+                    setTimeout(digitarTexto, 50);
+                } else {
+                    setTimeout(() => {
+                        document.getElementById("escudoFinal").style.display = "block";
+                    }, 3000);
+                }
+            }
+            digitarTexto();
+        }
+    </script>
 </body>
 </html>
