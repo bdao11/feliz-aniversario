@@ -6,203 +6,90 @@
     <title>Mensagem de Aniversário</title>
     <style>
         body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(to right, #8C1A3A, #006747); /* Cores do Fluminense */
-            color: white;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
             text-align: center;
-            padding: 50px;
-            overflow: hidden;
+            padding-top: 20px;
         }
-
-        .message {
-            display: none;
+        .content {
             font-size: 24px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            opacity: 0;
-            transition: opacity 2s;
-            white-space: pre-wrap;
-            font-family: 'Courier New', monospace;
-        }
-
-        .final-image {
-            display: none;
-            max-width: 60%;
-            margin-top: 50px;
-            transition: opacity 2s;
-        }
-
-        #scudo {
-            width: 200px;
-            transition: transform 2s;
-        }
-
-        #message {
-            font-size: 30px;
-            font-weight: bold;
-            color: #FFF;
-        }
-
-        #taca-liberta {
-            width: 200px;
-            margin-top: 50px;
-            transition: transform 2s;
-        }
-
-        .input-container {
-            margin: 20px 0;
-        }
-
-        .input-field {
-            padding: 10px;
-            font-size: 16px;
-            margin-right: 10px;
-            border-radius: 5px;
-            border: none;
-        }
-
-        .btn-submit {
-            padding: 10px 20px;
-            background-color: #006747;
-            color: white;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        #intro h2 {
-            font-size: 28px;
-        }
-
-        #joke {
-            font-size: 24px;
-            color: #FFF;
+            color: #333;
             margin-top: 20px;
         }
-
+        .hidden {
+            visibility: hidden;
+        }
+        .question {
+            font-size: 26px;
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 10px;
+        }
+        .answer {
+            font-size: 22px;
+            font-style: italic;
+            color: #16a085;
+        }
+        .taça {
+            margin-top: 20px;
+            width: 150px;
+        }
+        #fluminense {
+            margin-top: 20px;
+        }
+        #message {
+            visibility: hidden;
+            font-size: 24px;
+            margin-top: 30px;
+            color: #333;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Música de fundo com intervalo específico -->
-    <audio id="background-music" loop>
-        <source src="MySacrifice-Creed.mp3" type="audio/mp3">
-        Seu navegador não suporta o elemento de áudio.
-    </audio>
+<div id="intro" class="content">
+    <div class="question" id="question1">Quando começamos a conversar?</div>
+    <div id="brincadeira" class="answer hidden">Brincadeirinha kkkkk</div>
+    <div class="question hidden" id="question2">Quando o Flu ganhou a Liberta? (dd/mm/aa)</div>
+    <input type="text" id="answer-liberta" class="hidden" placeholder="Digite a resposta aqui">
+</div>
 
-    <!-- Perguntas interativas -->
-    <div id="intro">
-        <h2>Antes de começarmos, me diga:</h2>
-        <div class="input-container">
-            <label for="conversationDate">Quando começamos a conversar? (dd/mm/aa): </label>
-            <input type="text" id="conversationDate" class="input-field">
-        </div>
-        <button class="btn-submit" onclick="showJoke()">Enviar Resposta</button>
-    </div>
+<img id="liberta-cup" class="taça hidden" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Ta%C3%A7a_da_Libertadores.svg/1200px-Ta%C3%A7a_da_Libertadores.svg.png" alt="Taça da Libertadores">
+<img id="fluminense" class="hidden" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Fluminense_FC_logo.svg/1200px-Fluminense_FC_logo.svg.png" alt="Escudo Fluminense" width="150">
 
-    <!-- Resposta brincalhona -->
-    <div id="joke" style="display:none;">
-        <h3>Brincadeirinha kkkkk</h3>
-        <p>Agora me diga, quando o flu ganhou a liberta? (dd/mm/aa):</p>
-        <input type="text" id="libertadoresDate" class="input-field">
-        <button class="btn-submit" onclick="showLibertaCelebration()">Enviar Resposta</button>
-    </div>
+<div id="message" class="content">
+    <p>Há um ano eu te disse que as pessoas ao seu redor eram felizes pela dádiva de poder compartilhar essa existência na sua companhia e continuo com esse mesmo pensamento. Você, ainda que sem saber ou sem a efetiva intenção, inspira a mudança naqueles que sintonizam na sua energia. Depois que nós nos conhecemos, pude evoluir em vários aspectos da minha vida graças a motivação que eu extraia de você. Umas das evoluções foi no esporte/atividade física né kkkkk, além de outros que nem convém enumerar nesse momento. Espero que você consiga sempre se lembrar que a sua vida é importante e faz diferença pra alguém em algum lugar no mundo, ainda que você não veja esse reflexo. <br><br>Feliz aniversário, desejo que a luz que você emana não ilumine só o caminho das pessoas ao seu redor, como possa iluminar seu próprio caminho e decisões. Que os próximos ciclos sejam repletos de sucesso e felicidade, pois é o que você merece.<br><br>Adeus com carinho, até o próximo ciclo.</p>
+</div>
 
-    <!-- Imagem da Taça da Libertadores com o escudo do Fluminense -->
-    <img id="taca-liberta" class="final-image" src="taca-libertadores.png" alt="Taça Libertadores">
-    <img id="scudo" class="final-image" src="fluminense-escudo.png" alt="Escudo do Fluminense">
+<script>
+    // Função para iniciar a brincadeira e exibir a primeira pergunta
+    setTimeout(function() {
+        document.getElementById('question1').style.visibility = 'visible';
+    }, 500); // Exibe a pergunta sobre quando começaram a conversar após meio segundo
 
-    <!-- Mensagens de aniversário -->
-    <div id="message1" class="message">Há um ano eu te disse que as pessoas ao seu redor...</div>
-    <div id="message2" class="message">Você, ainda que sem saber ou sem a efetiva intenção...</div>
-    <div id="message3" class="message">Depois que nós nos conhecemos, pude evoluir...</div>
-    <div id="message4" class="message">Feliz aniversário, desejo que a luz que você emana...</div>
-    <div id="message5" class="message">Adeus com carinho, até o próximo ciclo.</div>
+    // Função para mostrar "Brincadeirinha kkkkk"
+    setTimeout(function() {
+        document.getElementById('brincadeira').style.visibility = 'visible';
+    }, 1500); // Exibe a resposta após 1 segundo
 
-    <div id="message" class="final-image">FELIZ ANIVERSÁRIO, JV!!!</div>
+    // Função para mostrar a segunda pergunta sobre a Libertadores
+    setTimeout(function() {
+        document.getElementById('question2').style.visibility = 'visible';
+        document.getElementById('answer-liberta').style.visibility = 'visible';
+    }, 2500); // Exibe a pergunta sobre o Flu após 2,5 segundos
 
-    <script>
-        function showJoke() {
-            let conversationDate = document.getElementById("conversationDate").value;
+    // Função para mostrar a taça da Libertadores e o escudo do Fluminense
+    setTimeout(function() {
+        document.getElementById('liberta-cup').style.visibility = 'visible';
+        document.getElementById('fluminense').style.visibility = 'visible';
+    }, 4000); // Exibe a taça e o escudo após 4 segundos
 
-            if (conversationDate) {
-                document.getElementById("intro").style.display = 'none';
-                setTimeout(function() {
-                    document.getElementById("joke").style.display = 'block';
-                }, 1000); // Exibe a brincadeira após 1 segundo
-            } else {
-                alert("Por favor, preencha a data.");
-            }
-        }
-
-        function showLibertaCelebration() {
-            let libertadoresDate = document.getElementById("libertadoresDate").value;
-
-            if (libertadoresDate) {
-                document.getElementById("joke").style.display = 'none';
-                setTimeout(function() {
-                    document.getElementById('taca-liberta').style.display = 'block';
-                    document.getElementById('scudo').style.display = 'block';
-                    document.getElementById('taca-liberta').style.transform = 'scale(1.5)';
-                    document.getElementById('scudo').style.transform = 'scale(1.5)';
-                }, 500); // Exibe a taça e o escudo após 500ms
-                setTimeout(startMessage, 3000); // Começa o texto após 3 segundos
-            } else {
-                alert("Por favor, preencha a data da Libertadores.");
-            }
-        }
-
-        let messageIndex = 1;
-        let messages = document.querySelectorAll('.message');
-
-        // Função para simular a digitação das mensagens
-        function startMessage() {
-            setInterval(typeMessage, 100); // 100ms entre cada caractere
-            playMusic();
-        }
-
-        function typeMessage() {
-            if (messageIndex <= messages.length) {
-                let currentMessage = messages[messageIndex - 1];
-                let fullText = currentMessage.getAttribute('data-text');
-
-                // Começa a digitação
-                if (!fullText) {
-                    currentMessage.setAttribute('data-text', currentMessage.textContent);
-                    currentMessage.textContent = '';
-                }
-
-                // Exibe a mensagem letra por letra
-                let currentText = currentMessage.getAttribute('data-text').slice(0, currentMessage.textContent.length + 1);
-                currentMessage.textContent = currentText;
-
-                // Quando a mensagem está completa, passa para a próxima
-                if (currentText === currentMessage.getAttribute('data-text')) {
-                    messageIndex++;
-                }
-            } else {
-                setTimeout(showFinalImage, 3000); // Espera 3 segundos antes de mostrar a imagem do escudo
-            }
-        }
-
-        function showFinalImage() {
-            document.getElementById('scudo').style.display = 'block';
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('scudo').style.transform = 'scale(1.5)';
-        }
-
-        function playMusic() {
-            let audio = document.getElementById("background-music");
-            audio.currentTime = 46; // Inicia a música do segundo 46
-            audio.play();
-
-            // Para a música após o segundo 1:30
-            setTimeout(() => {
-                audio.pause();
-            }, 44000); // 44.000 ms = 1:30
-        }
-    </script>
+    // Função para mostrar a mensagem de aniversário
+    setTimeout(function() {
+        document.getElementById('message').style.visibility = 'visible';
+    }, 6000); // Exibe a mensagem final após 6 segundos
+</script>
 
 </body>
 </html>
