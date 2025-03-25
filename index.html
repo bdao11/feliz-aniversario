@@ -6,96 +6,83 @@
     <title>Abra o seu presente</title>
     <style>
         body {
+            background-color: #800000; /* Cor do Fluminense */
+            color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
-            background-color: #f8f9fa;
         }
-        #perguntaLiberta, #campoResposta, #botaoContinuar, #conteudoFinal, #mensagemFinal, #escudoFlu {
+        .hidden {
             display: none;
         }
-        #mensagem {
-            white-space: pre-line;
-            font-size: 18px;
-            width: 80%;
-            margin: auto;
-            text-align: justify;
-        }
         img {
-            max-width: 200px;
+            max-width: 300px;
             margin: 20px;
         }
     </style>
 </head>
 <body>
     <h2>Quando começamos a conversar?</h2>
-    <p id="brincadeira" style="color: green; display: none;">Brincadeirinha kkkkk</p>
+    <p id="brincadeira" class="hidden"><i>Brincadeirinha kkkkk</i></p>
     
-    <h3 id="perguntaLiberta">Quando o Flu ganhou a Liberta? (dd/mm/aa)</h3>
-    <input type="text" id="campoResposta" placeholder="Digite a resposta aqui">
-    <button id="botaoContinuar" onclick="verificarResposta()">Continuar</button>
+    <h2 class="hidden" id="perguntaLiberta">Quando o Flu ganhou a Liberta? (dd/mm/aa)</h2>
+    <input type="text" id="resposta" class="hidden" placeholder="Digite a resposta aqui">
+    <button onclick="verificarResposta()" class="hidden" id="botaoContinuar">Continuar</button>
     
-    <div id="conteudoFinal">
-        <img id="tacaLibertadores" src="https://i.imgur.com/jbnMMt3.jpg" alt="Taça da Libertadores">
-        <img id="escudoFlu" src="https://i.imgur.com/iQb5iHU.jpg" alt="Escudo Fluminense">
+    <div id="conteudoFinal" class="hidden">
+        <img src="https://i.imgur.com/jbnMMt3.png" alt="Taça da Libertadores">
+        <img src="https://i.imgur.com/iQb5iHU.png" alt="Escudo Fluminense">
         <p id="mensagem"></p>
     </div>
-    
-    <p id="mensagemFinal" style="font-size: 24px; font-weight: bold; color: darkred;">FELIZ ANIVERSÁRIO, JV!!!!</p>
-    
-    <audio id="musica" src="https://archive.org/download/creed-my-sacrifice-official-audio-1/Creed%20-%20My%20Sacrifice%20%28Official%20Audio%29.mp3" preload="auto"></audio>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(() => {
-                document.getElementById("brincadeira").style.display = "block";
-                setTimeout(() => {
-                    document.getElementById("perguntaLiberta").style.display = "block";
-                    document.getElementById("campoResposta").style.display = "inline";
-                    document.getElementById("botaoContinuar").style.display = "inline";
-                }, 1000);
-            }, 1000);
-        });
 
+    <audio id="musica" loop>
+        <source src="https://archive.org/download/creed-my-sacrifice-official-audio-1/Creed%20-%20My%20Sacrifice%20%28Official%20Audio%29.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById("brincadeira").classList.remove("hidden");
+            setTimeout(() => {
+                document.getElementById("perguntaLiberta").classList.remove("hidden");
+                document.getElementById("resposta").classList.remove("hidden");
+                document.getElementById("botaoContinuar").classList.remove("hidden");
+            }, 1000);
+        }, 1000);
+        
         function verificarResposta() {
-            let resposta = document.getElementById("campoResposta").value;
+            let resposta = document.getElementById("resposta").value;
             if (resposta === "04/11/23") {
-                document.getElementById("perguntaLiberta").style.display = "none";
-                document.getElementById("campoResposta").style.display = "none";
-                document.getElementById("botaoContinuar").style.display = "none";
-                document.getElementById("conteudoFinal").style.display = "block";
-                setTimeout(exibirMensagem, 3000);
-                document.getElementById("musica").play();
+                document.getElementById("perguntaLiberta").classList.add("hidden");
+                document.getElementById("resposta").classList.add("hidden");
+                document.getElementById("botaoContinuar").classList.add("hidden");
+                document.getElementById("conteudoFinal").classList.remove("hidden");
+                tocarMusica();
+                escreverMensagem();
             } else {
-                alert("Resposta incorreta! Tente novamente.");
+                alert("Resposta incorreta. Tente novamente!");
             }
         }
+        
+        function tocarMusica() {
+            document.getElementById("musica").play();
+        }
 
-        function exibirMensagem() {
-            let texto = `Há um ano eu te disse que as pessoas ao seu redor eram felizes pela dádiva de poder compartilhar essa existência na sua companhia e continuo com esse mesmo pensamento.
-            Você, ainda que sem saber ou sem a efetiva intenção, inspira a mudança naqueles que sintonizam na sua energia. Depois que nós nos conhecemos, pude evoluir em vários aspectos da minha vida graças à motivação que eu extraia de você.
-            Umas das evoluções foi no esporte/atividade física né kkkkk, além de outros que nem convém enumerar nesse momento. Espero que você consiga sempre se lembrar que a sua vida é importante e faz diferença pra alguém em algum lugar no mundo, ainda que você não veja esse reflexo.
-            
-            Feliz aniversário, desejo que a luz que você emana não ilumine só o caminho das pessoas ao seu redor, como possa iluminar seu próprio caminho e decisões. Que os próximos ciclos sejam repletos de sucesso e felicidade, pois é o que você merece.
-            
-            Adeus com carinho, até o próximo ciclo.`;
-            
-            let index = 0;
+        function escreverMensagem() {
+            let mensagem = "Há um ano eu te disse que as pessoas ao seu redor eram felizes pela dádiva de poder compartilhar essa existência na sua companhia...";
             let elemento = document.getElementById("mensagem");
-            elemento.style.display = "block";
-            function escreverTexto() {
-                if (index < texto.length) {
-                    elemento.textContent += texto.charAt(index);
-                    index++;
-                    setTimeout(escreverTexto, 50);
+            let i = 0;
+            
+            function escrever() {
+                if (i < mensagem.length) {
+                    elemento.innerHTML += mensagem.charAt(i);
+                    i++;
+                    setTimeout(escrever, 50);
                 } else {
                     setTimeout(() => {
-                        document.getElementById("escudoFlu").style.display = "block";
-                        document.getElementById("mensagemFinal").style.display = "block";
+                        elemento.innerHTML += "<br><br><img src='https://i.imgur.com/iQb5iHU.png'><br><h2>FELIZ ANIVERSÁRIO, JV!!!!</h2>";
                     }, 3000);
                 }
             }
-            escreverTexto();
+            escrever();
         }
     </script>
 </body>
